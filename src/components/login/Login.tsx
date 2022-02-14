@@ -33,7 +33,7 @@ export const Login = () => {
   if (loginData?.id === 0) {
     // set the login data from the login form.
     // this allows you to do two-factor auth after logging in.
-    form = <LoginForm loginData={setLoginData} />;
+    form = <LoginForm loginData={setLoginData} success={success} />;
   } else {
     form = <AuthForm loginData={loginData} success={success} />;
   }
