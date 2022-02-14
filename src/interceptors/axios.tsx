@@ -3,11 +3,15 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:8000/api/';
 axios.defaults.withCredentials = true;
 
+let refresh = false;
+
 axios.interceptors.response.use(
   (resp) => resp,
   async (error) => {
     // token probably expired
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && !refresh) {
+      refresh = true;
+
       // get new refresh token
       const refreshResp = await axios.post('refresh', {});
 
@@ -18,6 +22,7 @@ axios.interceptors.response.use(
       }
     }
 
+    refresh = false;
     return error;
   }
 );
