@@ -9,8 +9,6 @@ export const Home = () => {
   const auth = useSelector((state: RootState) => state.auth.value);
   const dispatch = useDispatch();
 
-  const getUser = async () => {};
-
   useEffect(() => {
     (async () => {
       try {
@@ -26,7 +24,7 @@ export const Home = () => {
         dispatch(setAuth(false));
       }
     })();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className='container mt-5 form-signin text-center'>
