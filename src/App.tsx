@@ -6,6 +6,7 @@ import { Register } from './components/Register';
 import { Home } from './components/Home';
 import { Nav } from './components/Nav';
 import { Forgot } from './components/Forgot';
+import { Reset } from './components/Reset';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/forgot' element={<Forgot />} />
+        <Route path='/reset/:token' element={<Reset />} />
       </Routes>
     </BrowserRouter>
   );
