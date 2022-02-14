@@ -2,19 +2,20 @@ import React, { SyntheticEvent, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-export const LoginForm = (props: { success: Function }) => {
+export const LoginForm = (props: { loginData: Function }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const submit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    await axios.post('login', {
+    const { data } = await axios.post('login', {
       email,
       password,
     });
 
-    props.success();
+    // props.success();
+    props.loginData(data);
   };
 
   return (
