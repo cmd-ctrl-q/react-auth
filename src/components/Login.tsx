@@ -2,6 +2,7 @@ import React, { useState, SyntheticEvent } from 'react';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import { Alert } from './Alert';
+import { Link } from 'react-router-dom';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -59,6 +60,10 @@ export const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <label htmlFor='password'>Password</label>
+        </div>
+
+        <div className='mb-3'>
+          <Link to='/forgot'>Forgot Password</Link>
         </div>
 
         <button className='w-100 btn btn-lg btn-primary' type='submit'>

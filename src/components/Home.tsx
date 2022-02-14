@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from '../redux/authSlice';
+import { RootState } from '../redux/store';
 
 export const Home = () => {
-  const [message, setMessage] = useState('You are not authenticated');
+  const [message, setMessage] = useState('');
+  const auth = useSelector((state: RootState) => state.auth.value);
   const dispatch = useDispatch();
 
   const getUser = async () => {};
@@ -27,6 +29,8 @@ export const Home = () => {
   }, []);
 
   return (
-    <div className='container mt-5 form-signin text-center'>{message}</div>
+    <div className='container mt-5 form-signin text-center'>
+      {auth ? message : 'You are not authenticated'}
+    </div>
   );
 };

@@ -1,15 +1,20 @@
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setAuth } from '../redux/authSlice';
 import { RootState } from '../redux/store';
 
 export const Nav = () => {
   // get the auth value from the state
   const auth = useSelector((state: RootState) => state.auth.value);
+  const dispatch = useDispatch();
 
   const logout = async () => {
     // send request to delete jwt on backend
     await axios.post('logout');
+
+    dispatch(setAuth(false));
   };
 
   let links;
