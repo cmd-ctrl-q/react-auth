@@ -25,10 +25,17 @@ export const AuthForm = (props: {
     e.preventDefault();
 
     // send two-factor auth request
-    const { status } = await axios.post('two-factor', {
-      ...props.loginData,
-      code,
-    });
+    const { status, data } = await axios.post(
+      'two-factor',
+      {
+        ...props.loginData,
+        code,
+      },
+      { withCredentials: true }
+    );
+
+    // get access token from response
+    axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
 
     if (status === 200) {
       props.success();

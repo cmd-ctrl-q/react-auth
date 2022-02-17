@@ -11,7 +11,7 @@ export const Nav = () => {
 
   const logout = async () => {
     // send request to delete jwt on backend
-    await axios.post('logout');
+    await axios.post('logout', { withCredentials: true });
 
     dispatch(setAuth(false));
   };

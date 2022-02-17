@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:8000/api/';
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true; // via cookies
 
 let refresh = false;
 
@@ -13,10 +13,17 @@ axios.interceptors.response.use(
       refresh = true;
 
       // get new refresh token
-      const refreshResp = await axios.post('refresh', {});
+      const response = await axios.post('refresh', {
+        withCredentials: true,
+      });
 
       // success
-      if (refreshResp.status === 200) {
+      if (response.status === 200) {
+        // get access token from response
+        axios.defaults.headers.common[
+          'Authorization'
+        ] = `Bearer ${response.data.token}`;
+
         // return previous request details in error.config object
         return axios(error.config);
       }

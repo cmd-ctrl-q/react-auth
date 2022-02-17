@@ -23,11 +23,17 @@ export const LoginForm = (props: {
   };
 
   const onSuccess = async (googleUser: any) => {
-    const data = await axios.post('google-auth', {
-      token: googleUser.tokenId,
-    });
+    const { status, data } = await axios.post(
+      'google-auth',
+      {
+        token: googleUser.tokenId,
+      },
+      { withCredentials: true }
+    );
 
-    console.log('\n\ndata:', data);
+    // get access token from response
+    axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+
     if (data.status === 200) {
       props.success();
     }
